@@ -1,0 +1,18 @@
+[staticPage]
+useContent = 1
+default = 0
+
+[staticMenu mainMenu]
+code = 'main-menu'
+==
+{% put navItems %}
+    {% partial "tmpl/nav-items" menu=mainMenu %}
+{% endput %}
+
+{% partial "tmpl/header" %}
+
+    <div class="page-content">
+        {% page %}
+    </div>
+
+{% partial "tmpl/footer" %}

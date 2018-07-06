@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="/themes/luketowers/assets/favicons/mstile-150x150.png?v=YAobOj8L68"/>
+            <TileColor>#1395ba</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>

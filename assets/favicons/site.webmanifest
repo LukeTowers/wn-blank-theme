@@ -1,0 +1,19 @@
+{
+    "name": "Luke Towers",
+    "short_name": "Luke Towers",
+    "icons": [
+        {
+            "src": "/themes/luketowers/assets/favicons/android-chrome-192x192.png?v=YAobOj8L68",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/themes/luketowers/assets/favicons/android-chrome-512x512.png?v=YAobOj8L68",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

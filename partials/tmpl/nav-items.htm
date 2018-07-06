@@ -1,0 +1,87 @@
+==
+<?php
+    public function onStart() {
+        $this->page->addDynamicMethod('checkMenuItemActive', function($item) {
+            if (Request::root() . '/' . Request::segment(1) === $item->url) {
+                return true;
+            }
+            return false;
+        });
+    }
+==
+{# Custom navigation implementation #}
+{% import _self as nav %}
+
+{# Generate the menu item's class #}
+{% macro generate_item_class(item, options = null, this) %}
+    menu-item
+    {{ options.submenu ? 'menu-item-has-children' : ''}}
+    {{ item.isActive or this.page.checkMenuItemActive(item) ? 'current-menu-item' : '' }}
+{% endmacro %}
+
+
+{# Generate the menu item's title #}
+{% macro generate_item_title(item, options = null) %}
+    {{ item.title }}
+{% endmacro %}
+
+{% macro generate_item_url(item, options = null) %}
+    {% if (item.items and options.submenus) or item.url is empty %}
+        #
+    {% else %}
+        {{ item.url }}
+    {% endif %}
+{% endmacro %}
+
+
+{% macro generate_item_attr(item, options = null) %}
+    {% import _self as nav %}
+
+    {# URL #}
+    href="{{ nav.generate_item_url(item) | preg_replace('/\\s+/', ' ') | trim | raw }}"
+
+    {# Target #}
+    {% if item.viewBag.isExternal %}
+        target="_blank"
+    {% endif %}
+{% endmacro %}
+
+
+{# Render the menu items #}
+{% macro render_menu_items(items, options = null, this) %}
+    {% import _self as nav %}
+    {% for item in items if not item.viewBag.isHidden %}
+        <li role="presentation" class="{{ nav.generate_item_class(item, options, this) | preg_replace('/\\s+/', ' ') | trim | raw }}">
+            <a {{ nav.generate_item_attr(item, options) | preg_replace('/\\s+/', ' ') | trim | raw }}>
+                {{ nav.generate_item_title(item, options) | preg_replace('/\\s+/', ' ') | trim | raw }}
+            </a>
+
+            {% if item.items and options.submenus %}
+                {# Prepend the current item to it's children if it has a URL so that it can be displayed at the top of its list #}
+                {% if item.url %}
+                    {% set cleanedItem = {
+                        "title": item.title,
+                        "url": item.url,
+                        "code": item.url,
+                        "isActive": item.isActive,
+                        "isChildActive": false,
+                        "items": false,
+                        "viewBag": item.viewBag
+                    } %}
+                    {% set subItems = [cleanedItem] | merge(item.items) %}
+                {% else %}
+                    {% set subItems = item.items %}
+                {% endif %}
+                <ul class="sub-menu">
+                    {{ nav.render_menu_items(subItems, {"submenu": true}) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+
+{# Run the partial #}
+{% if menu.menuItems %}
+    {{ nav.render_menu_items(menu.menuItems, options, this) }}
+{% endif %}

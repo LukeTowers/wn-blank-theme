@@ -1,0 +1,6 @@
+{
+    "name": "luketowers/oc-blank-theme",
+    "type": "october-theme",
+    "description": "Blank OctoberCMS Starter Theme",
+    "keywords": ["october", "octobercms", "twig", "bootstrap", "bootstrapgridonly", "fontawesome5", "fontawesome", "normalize", "animate"]
+}

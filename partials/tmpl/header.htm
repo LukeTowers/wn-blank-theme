@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% placeholder page_title default %}{{ this.page.title }}{% endplaceholder %} | {{ app_name }}</title>
+        {% partial "meta/favicons" %}
+        {% partial "meta/styles" %}
+        {% partial "meta/seo" %}
+        <meta name="generator" content="OctoberCMS">
+    </head>
+    {% set pageId = this.page.id %}
+    {% set pageTitle = this.page.title %}
+    {% if pageId is empty %}
+        {% set pageId = page.id %}
+    {% endif %}
+    {% if pageTitle is empty %}
+        {% set pageTitle = page.title %}
+    {% endif %}
+    {% set navItems %}
+        {% placeholder navItems %}
+    {% endset %}
+    <body class="page-{{ pageId }} layout-{{ this.layout.id }}">
+        <div class="site_container">
+            <div class="header_container">
+                <header class="site-header">
+                    <div class="site-logo">
+                        <a href="/">
+                            <img src="{{ 'assets/images/logo.svg' | theme }}{# OR app_logo #}" alt="{{ app_name }} Logo">
+                        </a>
+                    </div>
+
+                    <div class="menu-button mobile">
+                        <a class="btn-menu" href="javascript:;">
+                            <div class="btn-menu-bar-container">
+                                <span class="btn-menu-bar"></span>
+                                <span class="btn-menu-bar"></span>
+                                <span class="btn-menu-bar"></span>
+                            </div>
+                            <span class="btn-menu-text">Menu</span>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="desktop-navigation desktop">
+                        <nav class="desktop-main-navigation">
+                            <ul class="main-menu">
+                                {{ navItems | raw }}
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+            <div class="enable-site-trigger"></div>
+            <div class="navigation_container mobile">
+                <nav class="mobile-main-navigation">
+                    <ul id="menu-main-menu" class="main-menu">
+                        {{ navItems | raw }}
+                    </ul>
+                </nav>
+            </div>
+
+            {% set headerImage = 'assets/images/default-header.png' | theme %}
+            {% if this.page.featuredImage is not empty %}
+                {% set headerImage = this.page.featuredImage %}
+            {% endif %}
+            <div class="page-header" style="background-image: url({{ headerImage }});">
+                <div class="header-content">
+                    {% placeholder pageHeader default %}
+                        <h1 class="header-title">{{ pageTitle }}</h1>
+                    {% endplaceholder %}
+                </div>
+            </div>

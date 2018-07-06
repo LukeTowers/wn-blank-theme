@@ -1,0 +1,13 @@
+name: 'Blank Theme'
+description: 'Blank starter theme'
+author: 'Luke Towers'
+homepage: 'https://www.example.com'
+code: blank
+form:
+    fields:
+        ga_id:
+            label: 'Google Analytics ID'
+require:
+    LukeTowers.EssentialVars
+    LukeTowers.TwigPCRE
+    RainLab.Pages

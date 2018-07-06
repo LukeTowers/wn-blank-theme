@@ -1,0 +1,27 @@
+//
+// Fonts file
+//
+// Allocated area for font definitions used by this application
+//
+
+//
+// Font Awesome
+//
+
+@import "../../vendor/fontawesome5/less/fontawesome";
+@import "../../vendor/fontawesome5/less/fa-solid";
+
+*[class^="icon"] {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 400;
+}
+
+//
+// Chrome exhibits strange behavior when custom fonts are used
+// on select inputs. This fixes the garbled text.
+//
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {
+        font-family: sans-serif;
+    }
+}

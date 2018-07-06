@@ -1,0 +1,74 @@
+{# Outputs the featured image #}
+
+{% import _self as featuredImage %}
+
+{# Generate the inline styles #}
+{% macro generateStyles(options) %}
+	{# Add the image #}
+	{% if options.image %}
+		background-image: url('{{ options.image | media }}');
+	{% endif %}
+
+	{# Add the background colour #}
+	{% if options.colour %}
+		background-color: {{ options.colour }};
+	{% endif %}
+
+	{# Add the height #}
+	{% if options.height %}
+		height: {{ options.height }};
+	{% endif %}
+
+	{# Add the background positions #}
+	{% if options.bgPosY or options.bgPosX %}
+		background-position:
+		{% if options.bgPosX %}
+			{{ options.bgPosX }}
+		{% else %}
+			center
+		{% endif %}
+
+		{% if options.bgPosY %}
+			{{ options.bgPosY }};
+		{% else %}
+			center;
+		{% endif %}
+	{% endif %}
+
+	{# Add the size #}
+	{% if options.size %}
+		background-size: {{ options.size }};
+	{% endif %}
+{% endmacro %}
+
+{# Generate the element itself #}
+{% macro generateElement(options) %}
+	{% import _self as featuredImage %}
+
+    {% if options.size == "full" and options.image %}
+		<img class="{{ options.class }}" src="{{ options.image | media }}" alt="Banner image" style="height: auto; max-width: none;">
+	{% else %}
+		<span class="{{ options.class }}" style="{{ featuredImage.generateStyles(options) | preg_replace('/\\s+/', ' ') | trim | raw }}"></span>
+	{% endif %}
+{% endmacro %}
+
+{# Run the partial #}
+{% if options.image or options.forceDisplay %}
+    {% if options.container %}
+        <section class="page-banner">
+            {% if options.title is not empty %}
+        		<h1 class="section-title">{{ options.title }}</h1>
+            {% endif %}
+
+            {% if options.tagline is not empty %}
+                <div class="banner-tagline-container"
+                    <p class="banner-tagline">{{ options.tagline | raw }}</p>
+                </div>
+            {% endif %}
+
+            {{ featuredImage.generateElement(options) | preg_replace('/\\s+/', ' ') | trim | raw }}
+        </section>
+    {% else %}
+        {{ featuredImage.generateElement(options) | preg_replace('/\\s+/', ' ') | trim | raw }}
+    {% endif %}
+{% endif %}

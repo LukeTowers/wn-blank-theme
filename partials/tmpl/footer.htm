@@ -1,0 +1,66 @@
+            <div class="footer_container">
+                <footer class="site-footer">
+                    <div class="footer-section section-services">
+                        <span class="footer-section-title" id="our-services-title">Our Services</span>
+                        <ul aria-describedby="our-services-title">
+                            <li>Over promising</li>
+                            <li>Under delivering</li>
+                            <li>Smooth talking</li>
+                            <li>Looking pretty</li>
+                            <li>Complex Wordiness</li>
+                        </ul>
+                    </div>
+                    <div class="footer-section section-contact">
+                        <span class="footer-section-title" id="contact-title">Contact</span>
+                        <ul aria-describedby="contact-title">
+                            <li>
+                                <span class="screen-reader-text" id="contact-location">Office Location</span>
+                                <a href="https://www.google.com/maps/dir/Current+Location/1234+Nowhere+Street+Toronto+ON+S0S+0S0" target="_blank" title="Get directions..." aria-describedby="contact-location">
+                                    1234 Nowhere Street<br>
+                                    Toronto, ON S0S 0S0
+                                </a>
+                            </li>
+                            <li>
+                                <span class="screen-reader-text" id="contact-phone">Phone Number</span>
+                                <a href="tel:+10005555555" title="Call us" aria-describedby="contact-phone">
+                                    P: 000-555-5555
+                                </a>
+                            </li>
+                            <li>
+                                <span class="screen-reader-text" id="contact-fax">Fax Number</span>
+                                <span aria-describedby="contact-fax">
+                                    F: 000-555-5556
+                                </span>
+                            </li>
+                            <li>
+                                <span class="screen-reader-text" id="contact-email">Email Address</span>
+                                <a href="mailto:noreply@example.com" title="Email us" aria-describedby="contact-email">
+                                    E: noreply@example.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-section section-credits">
+                        <span class="credit-site">&copy; {{ date() | date('Y') }} {{ app_name }}</span>
+                        <span class="credit-development"><a href="https://luketowers.ca/" target="_blank" title="Website Development Consulting">Website by Luke Towers Consulting</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <!-- Scripts -->
+        <script src="{{ [
+            '@jquery',
+            '@framework',
+            '@framework.extras',
+
+            'assets/js/app.js',
+        ]|theme }}"></script>
+        {% scripts %}
+
+        {% flash %}
+            <p data-control="flash-message" data-interval="7" class="flashmessage {{ type }}">
+                {{ message }}
+            </p>
+        {% endflash %}
+    </body>
+</html>
